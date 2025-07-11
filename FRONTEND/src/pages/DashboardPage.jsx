@@ -8,6 +8,16 @@ import { getUserStats } from "../api/user.api";
 const DashboardPage = () => {
   const { user } = useSelector((state) => state.auth);
 
+  const {
+    data: stats,
+    isLoading: statsLoading,
+    isError: statsError,
+  } = useQuery({
+    queryKey: ["userStats"],
+    queryFn: getUserStats,
+    refetchInterval: 30000,
+  });
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
