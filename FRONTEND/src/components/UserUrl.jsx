@@ -277,8 +277,23 @@ const UserUrl = () => {
                         <span className="text-gray-600">
                           <span className="font-semibold text-gray-900">
                             {url.clicks}
-                          </span>{" "}
-                          clicks
+                          </span>
+                          {url.click_limit ? (
+                            <>
+                              {" / "}
+                              <span className="font-semibold text-gray-900">
+                                {url.click_limit}
+                              </span>
+                              {" clicks"}
+                              {url.clicks >= url.click_limit && (
+                                <span className="ml-2 text-red-600 font-medium">
+                                  (Limit Reached)
+                                </span>
+                              )}
+                            </>
+                          ) : (
+                            " clicks"
+                          )}
                         </span>
                       </div>
 
