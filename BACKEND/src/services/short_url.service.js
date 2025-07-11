@@ -4,6 +4,7 @@ import {
   getCustomShortUrl,
   saveShortUrl,
   getUrlCountByIpAddress,
+  getUrlCountByUser,
 } from "../dao/short_url.js";
 
 export const createShortUrlWithoutUser = async (url, ipAddress) => {
