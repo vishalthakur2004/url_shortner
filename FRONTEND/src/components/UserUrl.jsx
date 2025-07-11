@@ -325,16 +325,26 @@ const UserUrl = () => {
                   <div className="ml-4 flex-shrink-0">
                     <div
                       className={`inline-flex items-center px-3 py-1 rounded-full text-xs font-medium ${
-                        url.clicks > 10
-                          ? "bg-green-100 text-green-800"
-                          : url.clicks > 5
+                        url.click_limit && url.clicks >= url.click_limit
+                          ? "bg-red-100 text-red-800"
+                          : url.click_limit &&
+                              url.clicks > url.click_limit * 0.8
                             ? "bg-yellow-100 text-yellow-800"
-                            : url.clicks > 0
-                              ? "bg-blue-100 text-blue-800"
-                              : "bg-gray-100 text-gray-800"
+                            : url.clicks > 10
+                              ? "bg-green-100 text-green-800"
+                              : url.clicks > 5
+                                ? "bg-yellow-100 text-yellow-800"
+                                : url.clicks > 0
+                                  ? "bg-blue-100 text-blue-800"
+                                  : "bg-gray-100 text-gray-800"
                       }`}
                     >
-                      {url.clicks} {url.clicks === 1 ? "click" : "clicks"}
+                      {url.clicks}
+                      {url.click_limit ? ` / ${url.click_limit}` : ""}{" "}
+                      {url.clicks === 1 ? "click" : "clicks"}
+                      {url.click_limit && url.clicks >= url.click_limit && (
+                        <span className="ml-1">🔒</span>
+                      )}
                     </div>
                   </div>
                 </div>
