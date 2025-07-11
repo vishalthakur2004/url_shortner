@@ -1,5 +1,6 @@
 import { generateNanoId } from "../utils/helper.js";
 import urlSchema from "../models/short_url.model.js";
+import User from "../models/user.model.js";
 import {
   getCustomShortUrl,
   saveShortUrl,
