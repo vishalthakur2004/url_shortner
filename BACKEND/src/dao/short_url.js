@@ -17,6 +17,7 @@ export const saveShortUrl = async (
     }
     if (ipAddress && !userId) {
       newUrl.ip_address = ipAddress;
+      newUrl.click_limit = 10; // Free users have 10 click limit per URL
     }
     await newUrl.save();
   } catch (err) {
