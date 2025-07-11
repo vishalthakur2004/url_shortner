@@ -24,12 +24,25 @@ export const createShortUrlWithoutUser = async (url, ipAddress) => {
 };
 
 export const createShortUrlWithUser = async (url, userId, slug = null) => {
+  // Check user's plan and URL count limit for free users
+  const user = await User.findById(userId);
+  if (!user) throw new Error("User not found");
+
+  if (user.plan === "free") {
+    const urlCount = await getUrlCountByUser(userId);
+    if (urlCount >= 5) {
+      throw new Error(
+        "Free users are limited to 5 short URLs. Please upgrade to premium for unlimited access.",
+      );
+    }
+  }
+
   const shortUrl = slug || generateNanoId(7);
   if (slug) {
     const exists = await getCustomShortUrl(slug);
     if (exists) throw new Error("This custom url already exists");
   }
 
-  await saveShortUrl(shortUrl, url, userId);
+  await saveShortUrl(shortUrl, url, userId, null, user.plan);
   return shortUrl;
 };
