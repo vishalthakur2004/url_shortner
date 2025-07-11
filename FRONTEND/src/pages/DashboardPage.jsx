@@ -2,6 +2,8 @@ import React from "react";
 import UrlForm from "../components/UrlForm";
 import UserUrl from "../components/UserUrl";
 import { useSelector } from "react-redux";
+import { useQuery } from "@tanstack/react-query";
+import { getUserStats } from "../api/user.api";
 
 const DashboardPage = () => {
   const { user } = useSelector((state) => state.auth);
