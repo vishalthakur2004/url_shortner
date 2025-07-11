@@ -29,7 +29,7 @@ const HomePage = () => {
                 <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
                   <p className="text-blue-800 text-sm">
                     <span className="font-semibold">Free users:</span> Get 5
-                    short URLs to try our service.
+                    short URLs with 10 clicks each to try our service.
                     <span className="text-blue-600 font-medium">
                       {" "}
                       Sign up for unlimited access!
