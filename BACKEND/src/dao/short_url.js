@@ -57,3 +57,7 @@ export const getCustomShortUrl = async (slug) => {
 export const getUrlCountByIpAddress = async (ipAddress) => {
   return await urlSchema.countDocuments({ ip_address: ipAddress });
 };
+
+export const getUrlCountByUser = async (userId) => {
+  return await urlSchema.countDocuments({ user: userId });
+};
