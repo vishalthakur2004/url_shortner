@@ -26,6 +26,11 @@ const shortUrlSchema = new mongoose.Schema(
       required: false,
       index: true,
     },
+    click_limit: {
+      type: Number,
+      required: false,
+      default: null, // null means unlimited, number means limited
+    },
   },
   {
     timestamps: true,
