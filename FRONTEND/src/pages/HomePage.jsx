@@ -24,6 +24,21 @@ const HomePage = () => {
               beautiful dashboard.
             </p>
 
+            {!isAuthenticated && (
+              <div className="mb-8 max-w-2xl mx-auto">
+                <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
+                  <p className="text-blue-800 text-sm">
+                    <span className="font-semibold">Free users:</span> Get 5
+                    short URLs to try our service.
+                    <span className="text-blue-600 font-medium">
+                      {" "}
+                      Sign up for unlimited access!
+                    </span>
+                  </p>
+                </div>
+              </div>
+            )}
+
             {/* Features */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12 max-w-4xl mx-auto">
               <div className="flex flex-col items-center p-6">
