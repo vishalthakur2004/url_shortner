@@ -35,18 +35,22 @@ const DashboardPage = () => {
               </div>
               <div className="hidden md:flex items-center space-x-6">
                 <div className="text-center">
-                  <div className="text-2xl font-bold text-blue-600">∞</div>
-                  <div className="text-sm text-gray-500">Unlimited URLs</div>
-                </div>
-                <div className="text-center">
-                  <div className="text-2xl font-bold text-purple-600">📊</div>
-                  <div className="text-sm text-gray-500">
-                    Real-time Analytics
+                  <div className="text-2xl font-bold text-blue-600">
+                    {statsLoading ? "..." : stats?.totalUrls || 0}
                   </div>
+                  <div className="text-sm text-gray-500">Total URLs</div>
                 </div>
                 <div className="text-center">
-                  <div className="text-2xl font-bold text-green-600">🔒</div>
-                  <div className="text-sm text-gray-500">Secure & Private</div>
+                  <div className="text-2xl font-bold text-purple-600">
+                    {statsLoading ? "..." : stats?.totalClicks || 0}
+                  </div>
+                  <div className="text-sm text-gray-500">Total Clicks</div>
+                </div>
+                <div className="text-center">
+                  <div className="text-2xl font-bold text-green-600">
+                    {statsLoading ? "..." : stats?.averageClicks || "0"}
+                  </div>
+                  <div className="text-sm text-gray-500">Avg Clicks</div>
                 </div>
               </div>
             </div>
