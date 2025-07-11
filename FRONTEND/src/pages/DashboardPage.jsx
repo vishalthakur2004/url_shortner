@@ -2,9 +2,21 @@ import React from "react";
 import UrlForm from "../components/UrlForm";
 import UserUrl from "../components/UserUrl";
 import { useSelector } from "react-redux";
+import { useQuery } from "@tanstack/react-query";
+import { getUserStats } from "../api/user.api";
 
 const DashboardPage = () => {
   const { user } = useSelector((state) => state.auth);
+
+  const {
+    data: stats,
+    isLoading: statsLoading,
+    isError: statsError,
+  } = useQuery({
+    queryKey: ["userStats"],
+    queryFn: getUserStats,
+    refetchInterval: 30000,
+  });
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50">
@@ -23,18 +35,22 @@ const DashboardPage = () => {
               </div>
               <div className="hidden md:flex items-center space-x-6">
                 <div className="text-center">
-                  <div className="text-2xl font-bold text-blue-600">∞</div>
-                  <div className="text-sm text-gray-500">Unlimited URLs</div>
-                </div>
-                <div className="text-center">
-                  <div className="text-2xl font-bold text-purple-600">📊</div>
-                  <div className="text-sm text-gray-500">
-                    Real-time Analytics
+                  <div className="text-2xl font-bold text-blue-600">
+                    {statsLoading ? "..." : stats?.totalUrls || 0}
                   </div>
+                  <div className="text-sm text-gray-500">Total URLs</div>
                 </div>
                 <div className="text-center">
-                  <div className="text-2xl font-bold text-green-600">🔒</div>
-                  <div className="text-sm text-gray-500">Secure & Private</div>
+                  <div className="text-2xl font-bold text-purple-600">
+                    {statsLoading ? "..." : stats?.totalClicks || 0}
+                  </div>
+                  <div className="text-sm text-gray-500">Total Clicks</div>
+                </div>
+                <div className="text-center">
+                  <div className="text-2xl font-bold text-green-600">
+                    {statsLoading ? "..." : stats?.averageClicks || "0"}
+                  </div>
+                  <div className="text-sm text-gray-500">Avg Clicks</div>
                 </div>
               </div>
             </div>
@@ -152,7 +168,9 @@ const DashboardPage = () => {
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-blue-100 text-sm">Total URLs</p>
-                <p className="text-2xl font-bold">∞</p>
+                <p className="text-2xl font-bold">
+                  {statsLoading ? "..." : stats?.totalUrls || 0}
+                </p>
               </div>
               <div className="w-12 h-12 bg-blue-400 bg-opacity-50 rounded-lg flex items-center justify-center">
                 <svg
@@ -174,7 +192,9 @@ const DashboardPage = () => {
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-green-100 text-sm">Total Clicks</p>
-                <p className="text-2xl font-bold">∞</p>
+                <p className="text-2xl font-bold">
+                  {statsLoading ? "..." : stats?.totalClicks || 0}
+                </p>
               </div>
               <div className="w-12 h-12 bg-green-400 bg-opacity-50 rounded-lg flex items-center justify-center">
                 <svg
@@ -197,8 +217,10 @@ const DashboardPage = () => {
           <div className="bg-gradient-to-r from-purple-500 to-purple-600 rounded-xl p-6 text-white">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-purple-100 text-sm">Click Rate</p>
-                <p className="text-2xl font-bold">∞%</p>
+                <p className="text-purple-100 text-sm">Avg Clicks</p>
+                <p className="text-2xl font-bold">
+                  {statsLoading ? "..." : stats?.averageClicks || "0"}
+                </p>
               </div>
               <div className="w-12 h-12 bg-purple-400 bg-opacity-50 rounded-lg flex items-center justify-center">
                 <svg
@@ -222,7 +244,9 @@ const DashboardPage = () => {
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-orange-100 text-sm">Top Performer</p>
-                <p className="text-2xl font-bold">∞</p>
+                <p className="text-2xl font-bold">
+                  {statsLoading ? "..." : stats?.topUrl?.clicks || 0}
+                </p>
               </div>
               <div className="w-12 h-12 bg-orange-400 bg-opacity-50 rounded-lg flex items-center justify-center">
                 <svg
