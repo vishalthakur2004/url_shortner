@@ -217,8 +217,10 @@ const DashboardPage = () => {
           <div className="bg-gradient-to-r from-purple-500 to-purple-600 rounded-xl p-6 text-white">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-purple-100 text-sm">Click Rate</p>
-                <p className="text-2xl font-bold">∞%</p>
+                <p className="text-purple-100 text-sm">Avg Clicks</p>
+                <p className="text-2xl font-bold">
+                  {statsLoading ? "..." : stats?.averageClicks || "0"}
+                </p>
               </div>
               <div className="w-12 h-12 bg-purple-400 bg-opacity-50 rounded-lg flex items-center justify-center">
                 <svg
