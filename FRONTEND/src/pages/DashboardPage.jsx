@@ -192,7 +192,9 @@ const DashboardPage = () => {
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-green-100 text-sm">Total Clicks</p>
-                <p className="text-2xl font-bold">∞</p>
+                <p className="text-2xl font-bold">
+                  {statsLoading ? "..." : stats?.totalClicks || 0}
+                </p>
               </div>
               <div className="w-12 h-12 bg-green-400 bg-opacity-50 rounded-lg flex items-center justify-center">
                 <svg
