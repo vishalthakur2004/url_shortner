@@ -29,9 +29,24 @@ export const saveShortUrl = async (
 };
 
 export const getShortUrl = async (shortUrl) => {
+  const url = await urlSchema.findOne({ short_url: shortUrl });
+
+  if (!url) {
+    return null;
+  }
+
+  // Check if URL has click limit and if it's reached
+  if (url.click_limit !== null && url.clicks >= url.click_limit) {
+    throw new Error(
+      `This short URL has reached its maximum of ${url.click_limit} clicks. Please contact the creator for assistance.`,
+    );
+  }
+
+  // Increment clicks and return updated URL
   return await urlSchema.findOneAndUpdate(
     { short_url: shortUrl },
     { $inc: { clicks: 1 } },
+    { new: true },
   );
 };
 
