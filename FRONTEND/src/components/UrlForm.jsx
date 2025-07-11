@@ -70,11 +70,11 @@ const UrlForm = () => {
             </svg>
             <div>
               <h3 className="text-amber-800 font-medium text-sm">
-                Free User Limit
+                Free User Limits
               </h3>
               <p className="text-amber-700 text-sm mt-1">
-                Free users can create up to 5 short URLs. Sign up for unlimited
-                access!
+                Free users can create up to 5 short URLs, each with a maximum of
+                10 clicks. Sign up for unlimited access!
               </p>
             </div>
           </div>
