@@ -11,5 +11,5 @@ export const rootRoute = createRootRoute({
 export const routeTree = rootRoute.addChildren([
   homePageRoute,
   authRoute,
-  dasboardRoute,
+  dashboardRoute,
 ]);
