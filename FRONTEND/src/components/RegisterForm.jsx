@@ -14,6 +14,8 @@ const RegisterForm = ({ state }) => {
   const [error, setError] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const [showOTPVerification, setShowOTPVerification] = useState(false);
+  const [registeredEmail, setRegisteredEmail] = useState("");
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
