@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { getAllUserUrls } from "../api/user.api";
+import { useSelector } from "react-redux";
 
 const UserUrl = () => {
   const {
@@ -16,6 +17,7 @@ const UserUrl = () => {
   });
   const [copiedId, setCopiedId] = useState(null);
   const [searchTerm, setSearchTerm] = useState("");
+  const { user } = useSelector((state) => state.auth);
 
   const handleCopy = (url, id) => {
     navigator.clipboard.writeText(url);
@@ -105,6 +107,57 @@ const UserUrl = () => {
 
   return (
     <div className="overflow-hidden">
+      {/* Usage Statistics for Free Users */}
+      {user && user.plan === "free" && urls?.urls && (
+        <div className="p-4 bg-blue-50 border-b border-blue-200">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center">
+              <svg
+                className="w-5 h-5 text-blue-600 mr-3"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"
+                />
+              </svg>
+              <div>
+                <h3 className="text-blue-800 font-medium text-sm">
+                  Free Plan Usage
+                </h3>
+                <p className="text-blue-700 text-xs mt-1">
+                  {urls.urls.length} of 5 URLs created
+                  {urls.urls.length >= 5 && (
+                    <span className="ml-2 text-red-600 font-medium">
+                      (Limit Reached)
+                    </span>
+                  )}
+                </p>
+              </div>
+            </div>
+            <div className="text-blue-600 text-xs">
+              <div className="flex items-center">
+                <div className="w-20 bg-blue-200 rounded-full h-2 mr-2">
+                  <div
+                    className="bg-blue-600 h-2 rounded-full"
+                    style={{
+                      width: `${Math.min((urls.urls.length / 5) * 100, 100)}%`,
+                    }}
+                  ></div>
+                </div>
+                <span className="text-blue-700 font-medium">
+                  {Math.round((urls.urls.length / 5) * 100)}%
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
       {/* Search and Filter */}
       <div className="p-6 border-b border-gray-100">
         <div className="flex items-center justify-between mb-4">

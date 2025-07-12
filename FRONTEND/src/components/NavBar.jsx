@@ -2,15 +2,24 @@ import React from "react";
 import { Link, useNavigate } from "@tanstack/react-router";
 import { useSelector, useDispatch } from "react-redux";
 import { logout } from "../store/slice/authSlice";
+import { logoutUser } from "../api/user.api";
 
 const Navbar = () => {
   const { isAuthenticated, user } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const handleLogout = () => {
-    dispatch(logout());
-    navigate({ to: "/" });
+  const handleLogout = async () => {
+    try {
+      await logoutUser();
+      dispatch(logout());
+      navigate({ to: "/" });
+    } catch (error) {
+      console.error("Logout failed:", error);
+      // Still log out locally even if API call fails
+      dispatch(logout());
+      navigate({ to: "/" });
+    }
   };
 
   return (

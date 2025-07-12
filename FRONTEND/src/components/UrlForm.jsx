@@ -10,7 +10,7 @@ const UrlForm = () => {
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
   const [customSlug, setCustomSlug] = useState("");
-  const { isAuthenticated } = useSelector((state) => state.auth);
+  const { isAuthenticated, user } = useSelector((state) => state.auth);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -52,7 +52,7 @@ const UrlForm = () => {
 
   return (
     <div className="space-y-6">
-      {!isAuthenticated && (
+      {(!isAuthenticated || (user && user.plan === "free")) && (
         <div className="p-4 bg-amber-50 border border-amber-200 rounded-lg">
           <div className="flex items-center">
             <svg
@@ -74,7 +74,8 @@ const UrlForm = () => {
               </h3>
               <p className="text-amber-700 text-sm mt-1">
                 Free users can create up to 5 short URLs, each with a maximum of
-                10 clicks. Sign up for unlimited access!
+                10 clicks. {!isAuthenticated ? "Sign up" : "Upgrade to premium"}{" "}
+                for unlimited access!
               </p>
             </div>
           </div>

@@ -8,11 +8,7 @@ import { getUserStats } from "../api/user.api";
 const DashboardPage = () => {
   const { user } = useSelector((state) => state.auth);
 
-  const {
-    data: stats,
-    isLoading: statsLoading,
-    isError: statsError,
-  } = useQuery({
+  const { data: stats, isLoading: statsLoading } = useQuery({
     queryKey: ["userStats"],
     queryFn: getUserStats,
     refetchInterval: 30000,
