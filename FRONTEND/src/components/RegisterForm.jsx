@@ -3,6 +3,7 @@ import { registerUser } from "../api/user.api";
 import { useDispatch } from "react-redux";
 import { login } from "../store/slice/authSlice";
 import { useNavigate } from "@tanstack/react-router";
+import OTPVerification from "./OTPVerification";
 
 const RegisterForm = ({ state }) => {
   const [name, setName] = useState("");
@@ -13,6 +14,8 @@ const RegisterForm = ({ state }) => {
   const [error, setError] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const [showOTPVerification, setShowOTPVerification] = useState(false);
+  const [registeredEmail, setRegisteredEmail] = useState("");
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -34,8 +37,10 @@ const RegisterForm = ({ state }) => {
 
     try {
       const data = await registerUser(name, password, email);
-      dispatch(login(data.user));
-      navigate({ to: "/dashboard" });
+      // Registration successful, now show OTP verification
+      setRegisteredEmail(email);
+      setShowOTPVerification(true);
+      setError("");
     } catch (err) {
       setError(err.message || "Registration failed. Please try again.");
     } finally {
@@ -59,6 +64,26 @@ const RegisterForm = ({ state }) => {
   };
 
   const passwordStrength = getPasswordStrength(password);
+
+  const handleBackToRegistration = () => {
+    setShowOTPVerification(false);
+    setRegisteredEmail("");
+    setName("");
+    setEmail("");
+    setPassword("");
+    setConfirmPassword("");
+    setError("");
+  };
+
+  // Show OTP verification if registration was successful
+  if (showOTPVerification) {
+    return (
+      <OTPVerification
+        email={registeredEmail}
+        onBack={handleBackToRegistration}
+      />
+    );
+  }
 
   return (
     <div className="space-y-6">

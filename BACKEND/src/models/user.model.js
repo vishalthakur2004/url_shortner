@@ -27,6 +27,18 @@ const userSchema = new mongoose.Schema({
     enum: ["free", "premium"],
     default: "free",
   },
+  emailVerified: {
+    type: Boolean,
+    default: false,
+  },
+  verificationOTP: {
+    type: String,
+    select: false,
+  },
+  otpExpiry: {
+    type: Date,
+    select: false,
+  },
 });
 
 userSchema.methods.comparePassword = async function (password) {

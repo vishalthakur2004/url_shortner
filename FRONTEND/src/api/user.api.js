@@ -36,3 +36,18 @@ export const getUserStats = async () => {
   const { data } = await axiosInstance.get("/api/user/stats");
   return data;
 };
+
+export const verifyOTP = async (email, otp) => {
+  const { data } = await axiosInstance.post("/api/auth/verify-otp", {
+    email,
+    otp,
+  });
+  return data;
+};
+
+export const resendOTP = async (email) => {
+  const { data } = await axiosInstance.post("/api/auth/resend-otp", {
+    email,
+  });
+  return data;
+};
