@@ -75,6 +75,16 @@ const RegisterForm = ({ state }) => {
     setError("");
   };
 
+  // Show OTP verification if registration was successful
+  if (showOTPVerification) {
+    return (
+      <OTPVerification
+        email={registeredEmail}
+        onBack={handleBackToRegistration}
+      />
+    );
+  }
+
   return (
     <div className="space-y-6">
       <div className="text-center">
