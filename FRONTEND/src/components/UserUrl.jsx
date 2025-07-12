@@ -17,6 +17,7 @@ const UserUrl = () => {
   });
   const [copiedId, setCopiedId] = useState(null);
   const [searchTerm, setSearchTerm] = useState("");
+  const { user } = useSelector((state) => state.auth);
 
   const handleCopy = (url, id) => {
     navigator.clipboard.writeText(url);
