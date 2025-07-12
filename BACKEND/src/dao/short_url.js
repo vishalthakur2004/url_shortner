@@ -15,10 +15,7 @@ export const saveShortUrl = async (
     });
     if (userId) {
       newUrl.user = userId;
-      // Set click limit for free users only
-      if (userPlan === "free") {
-        newUrl.click_limit = 10; // Free users have 10 click limit per URL
-      }
+      // Logged in users have unlimited clicks (no click_limit set)
     }
     if (ipAddress && !userId) {
       newUrl.ip_address = ipAddress;
