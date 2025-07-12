@@ -9,9 +9,17 @@ const Navbar = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const handleLogout = () => {
-    dispatch(logout());
-    navigate({ to: "/" });
+  const handleLogout = async () => {
+    try {
+      await logoutUser();
+      dispatch(logout());
+      navigate({ to: "/" });
+    } catch (error) {
+      console.error("Logout failed:", error);
+      // Still log out locally even if API call fails
+      dispatch(logout());
+      navigate({ to: "/" });
+    }
   };
 
   return (
