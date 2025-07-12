@@ -2,6 +2,7 @@ import React from "react";
 import { Link, useNavigate } from "@tanstack/react-router";
 import { useSelector, useDispatch } from "react-redux";
 import { logout } from "../store/slice/authSlice";
+import { logoutUser } from "../api/user.api";
 
 const Navbar = () => {
   const { isAuthenticated, user } = useSelector((state) => state.auth);
