@@ -2,7 +2,7 @@ import User from "../models/user.model.js";
 import UrlModel from "../models/short_url.model.js";
 
 export const findUserByEmail = async (email) => {
-  return await User.findOne({ email });
+  return await User.findOne({ email }).select("+verificationOTP +otpExpiry");
 };
 
 export const findUserByEmailByPassword = async (email) => {
@@ -13,10 +13,27 @@ export const findUserById = async (id) => {
   return await User.findById(id);
 };
 
-export const createUser = async (name, email, password) => {
-  const newUser = new User({ name, email, password });
+export const createUser = async (
+  name,
+  email,
+  password,
+  verificationOTP = null,
+  otpExpiry = null,
+) => {
+  const newUser = new User({
+    name,
+    email,
+    password,
+    verificationOTP,
+    otpExpiry,
+    emailVerified: false,
+  });
   await newUser.save();
   return newUser;
+};
+
+export const updateUser = async (id, updateData) => {
+  return await User.findByIdAndUpdate(id, updateData, { new: true });
 };
 
 export const getAllUserUrlsDao = async (id) => {
