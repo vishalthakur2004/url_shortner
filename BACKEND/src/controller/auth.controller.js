@@ -31,3 +31,17 @@ export const logout_user = wrapAsync(async (req, res) => {
 export const get_current_user = wrapAsync(async (req, res) => {
   res.status(200).json({ user: req.user });
 });
+
+export const verify_otp = wrapAsync(async (req, res) => {
+  const { email, otp } = req.body;
+  const { token, user } = await verifyUserOTP(email, otp);
+  req.user = user;
+  res.cookie("accessToken", token, cookieOptions);
+  res.status(200).json({ user: user, message: "Email verified successfully" });
+});
+
+export const resend_otp = wrapAsync(async (req, res) => {
+  const { email } = req.body;
+  await resendOTP(email);
+  res.status(200).json({ message: "OTP sent successfully" });
+});
