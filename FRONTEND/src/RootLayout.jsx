@@ -19,7 +19,7 @@ const RootLayout = () => {
         if (data.user) {
           dispatch(login(data.user));
         }
-      } catch (error) {
+      } catch {
         // User is not logged in or token is invalid
         console.log("No active session");
       }
