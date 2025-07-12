@@ -52,7 +52,7 @@ const UrlForm = () => {
 
   return (
     <div className="space-y-6">
-      {(!isAuthenticated || (user && user.plan === "free")) && (
+      {!isAuthenticated && (
         <div className="p-4 bg-amber-50 border border-amber-200 rounded-lg">
           <div className="flex items-center">
             <svg
@@ -73,9 +73,35 @@ const UrlForm = () => {
                 Free User Limits
               </h3>
               <p className="text-amber-700 text-sm mt-1">
-                Free users can create up to 5 short URLs, each with a maximum of
-                10 clicks. {!isAuthenticated ? "Sign up" : "Upgrade to premium"}{" "}
-                for unlimited access!
+                Anonymous users can create up to 5 short URLs, each with a
+                maximum of 10 clicks. Sign up for unlimited access!
+              </p>
+            </div>
+          </div>
+        </div>
+      )}
+      {isAuthenticated && (
+        <div className="p-4 bg-green-50 border border-green-200 rounded-lg">
+          <div className="flex items-center">
+            <svg
+              className="w-5 h-5 text-green-600 mr-3"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
+                d="M5 13l4 4L19 7"
+              />
+            </svg>
+            <div>
+              <h3 className="text-green-800 font-medium text-sm">
+                Unlimited Access
+              </h3>
+              <p className="text-green-700 text-sm mt-1">
+                As a logged-in user, you have unlimited URL creation and clicks!
               </p>
             </div>
           </div>
