@@ -37,8 +37,10 @@ const RegisterForm = ({ state }) => {
 
     try {
       const data = await registerUser(name, password, email);
-      dispatch(login(data.user));
-      navigate({ to: "/dashboard" });
+      // Registration successful, now show OTP verification
+      setRegisteredEmail(email);
+      setShowOTPVerification(true);
+      setError("");
     } catch (err) {
       setError(err.message || "Registration failed. Please try again.");
     } finally {
