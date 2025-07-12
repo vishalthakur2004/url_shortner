@@ -10,7 +10,7 @@ const UrlForm = () => {
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
   const [customSlug, setCustomSlug] = useState("");
-  const { isAuthenticated } = useSelector((state) => state.auth);
+  const { isAuthenticated, user } = useSelector((state) => state.auth);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
