@@ -3,6 +3,7 @@ import { registerUser } from "../api/user.api";
 import { useDispatch } from "react-redux";
 import { login } from "../store/slice/authSlice";
 import { useNavigate } from "@tanstack/react-router";
+import OTPVerification from "./OTPVerification";
 
 const RegisterForm = ({ state }) => {
   const [name, setName] = useState("");
