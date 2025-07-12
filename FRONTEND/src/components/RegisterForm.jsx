@@ -65,6 +65,16 @@ const RegisterForm = ({ state }) => {
 
   const passwordStrength = getPasswordStrength(password);
 
+  const handleBackToRegistration = () => {
+    setShowOTPVerification(false);
+    setRegisteredEmail("");
+    setName("");
+    setEmail("");
+    setPassword("");
+    setConfirmPassword("");
+    setError("");
+  };
+
   return (
     <div className="space-y-6">
       <div className="text-center">
